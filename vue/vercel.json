@@ -1,0 +1,5 @@
+{
+    "routes": [
+      { "src": "/api/getData", "dest": "api/getData.js" }
+    ]
+  }
