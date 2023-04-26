@@ -42,7 +42,7 @@
         </div>
         <div class="div1 p-1 p-sm-3">
             <div class="input-group">
-                <span class="input-group-text moreHeight" id="basic-addon3">example.com</span>
+                <span class="input-group-text moreHeight" id="basic-addon3">https://www.example.com</span>
                 <input type="text" v-model="this.url" autofocus class="form-control moreHeight" id="basic-url" aria-describedby="basic-addon3">
                 <div class="d-block w-100 d-sm-none"></div>
 
