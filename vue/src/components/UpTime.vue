@@ -122,6 +122,7 @@ export default {
         getStatusCode: function() {
             let base_url = "http://localhost:3000";
             base_url = "";
+
             fetch(`${base_url}/api/getData?url=${this.url}`)
                 .then(response => response.json())
                 .then(data => {
@@ -156,13 +157,14 @@ export default {
 
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlString, 'text/html');
-            const hrefs = doc.querySelectorAll('['+att +']');
-            
 
+            const elements = doc.querySelectorAll('['+ att +']');
             
-            for(let h of hrefs){
-                  
-                if(h.tagName.toLowerCase() === tag && h[att].includes(value)){
+            if (att === "class") att = "className";
+            
+            for(let element of elements){
+                if(element.tagName.toLowerCase() === tag && element[att] != undefined && element[att].includes(value)){
+                    
                     this.exist = true;
                     return 1;
                 }
@@ -172,26 +174,29 @@ export default {
             
         },
         
-        checkApi: function(htmlString,att,value2) {
+        checkApi: function(htmlString,att,value) {
 
             this.exist = false;
             this.isHtml = false;
 
 
-            if(value2 === '' || att === ''){
+            if(value === '' || att === ''){
                 return
             }
 
             //https://dog.ceo/api/breeds/image/random
-            // https://jsonplaceholder.typicode.com/todos/1
+            //https://jsonplaceholder.typicode.com/todos/1
+
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlString, 'text/html');
-            const doc2 = doc.body.textContent;
-            const jsonObject = JSON.parse(doc2);
+
+            const textContent = doc.body.textContent;
+            const jsonObject = JSON.parse(textContent);
+            
             this.exist = false;
-            for (let [key,value] of Object.entries(jsonObject)) {
-                if(key == att && value == value2){
-                    console.log(jsonObject[att] == value2)
+            for (let [key,val] of Object.entries(jsonObject)) {
+                if(key == att && val == value){
+                    // console.log(jsonObject[att] == value)
                     this.exist = true;
 
                 }
